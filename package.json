@@ -1,0 +1,25 @@
+{
+  "name": "ztoken",
+  "version": "1.0.0",
+  "description": "This repository contains the smartcontract for Zebacus Token",
+  "main": "index.js",
+  "scripts": {
+    "test": "truffle test"
+  },
+  "keywords": [
+    "token",
+    "ERC20",
+    "ethereum",
+    "ztoken",
+    "zebacus"
+  ],
+  "author": "akshaydevh",
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.4.2",
+    "@openzeppelin/contracts-upgradeable": "^4.4.2",
+    "@truffle/hdwallet-provider": "^2.0.0",
+    "dotenv": "^16.0.0",
+    "truffle-plugin-verify": "^0.5.21"
+  }
+}

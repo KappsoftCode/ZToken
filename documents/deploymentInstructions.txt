@@ -1,0 +1,273 @@
+DEPLOYMENT INSTRUCTIONS
+------------------------
+
+step1 -> Install truffle globally.
+            $npm install -g truffle
+
+step2 -> Clone the github repo.
+            $git clone https://github.com/Kappsoft/UNICOIN-DCX.git
+
+step3 -> Install all other packages.
+            $cd UNICOIN-DCX
+            $npm install
+
+step4 -> Create a .env file with following variables.
+
+example:
+            ETHERSCAN_API_KEY =NMY3M6XYFUnhkjhXNTASD71PPM56Z2EMKJM
+            DEVELOPMENT_MNEMONIC =son cook jacket visit float skip frost maximum intact eight flee
+            INFURA_SECRET =9a6258223f98b747d5a16b6e11b0a16d7b
+            INFURA_ID =cb546799242c4621b4e5c511234b6e85
+            MNEMONIC =Please fill the data
+(NB:Never use the above value, Update the data)
+
+step5 -> Compile the contracts.
+            $truffle compile
+
+step6 -> Deploy the contract.
+            $truffle migrate --network rinkeby
+(NB: change network accordingly)
+
+step6 -> Verify the contract code.
+
+            $truffle run verify ZProxyAdmin --network rinkeby
+            $truffle run verify ZToken_V1 --network rinkeby
+            $truffle run verify ZProxy --network rinkeby
+
+Deplyed Contract Details (Rinkeby Test Network) [Dated 08/02/2022]
+-------------------------------------------------------------------
+
+#ADDRESSES
+**********
+ZProxyAdmin - 0x35f192b3781cE3E79817b39C083979EdAb85EBb7
+ZToken_V1   - 0x292C92c0f7A935e34944534B18f3484E881Ac068
+ZProxy      - 0x7B218739C85b05AC8b67485819B206B3802622d9
+
+#Compilation Log
+***************************************************************************************************
+
+Compiling your contracts...
+===========================
+> Everything is up to date, there is nothing to compile.
+
+
+
+Starting migrations...
+======================
+> Network name:    'rinkeby'
+> Network id:      4
+> Block gas limit: 29999972 (0x1c9c364)
+
+
+1_initial_migration.js
+======================
+
+   Replacing 'Migrations'
+   ----------------------
+   > transaction hash:    0x1375b1fbd0dfb7cec2d42d935e8886eba39c4afe7ecfb1497b170cad18c44517
+   > Blocks: 2            Seconds: 21
+   > contract address:    0x8Da1a11394e8fBAE96e307E86F922D33B5Ea2260
+   > block number:        10132836
+   > block timestamp:     1644314965
+   > account:             0x7Adb261Bea663ee06E4ff0a657E65aE91aC7167f
+   > balance:             99.968053725922513938
+   > gas used:            254138 (0x3e0ba)
+   > gas price:           2.706379726 gwei
+   > value sent:          0 ETH
+   > total cost:          0.000687793930806188 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 10132837)
+   > confirmation number: 2 (block: 10132838)
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.000687793930806188 ETH
+
+
+2_ZToken_migration.js
+=====================
+
+   Replacing 'ZProxyAdmin'
+   -----------------------
+   > transaction hash:    0xe6e5715ace8782d3c930a95ce0d81a04d007b1fb7816e812e69d7eb79d930e23
+   > Blocks: 1            Seconds: 9
+   > contract address:    0x35f192b3781cE3E79817b39C083979EdAb85EBb7
+   > block number:        10132840
+   > block timestamp:     1644315025
+   > account:             0x7Adb261Bea663ee06E4ff0a657E65aE91aC7167f
+   > balance:             99.96551374428820227
+   > gas used:            894830 (0xda76e)
+   > gas price:           2.700098385 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00241612903784955 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 10132841)
+   > confirmation number: 2 (block: 10132842)
+
+   Replacing 'ZToken_V1'
+   ---------------------
+   > transaction hash:    0x6a2d265e21485503728930f1e8e611fa47cb635acb87c2683fce3d5662e92fc2
+   > Blocks: 1            Seconds: 10
+   > contract address:    0x292C92c0f7A935e34944534B18f3484E881Ac068
+   > block number:        10132843
+   > block timestamp:     1644315070
+   > account:             0x7Adb261Bea663ee06E4ff0a657E65aE91aC7167f
+   > balance:             99.957827393277335742
+   > gas used:            2846844 (0x2b707c)
+   > gas price:           2.699955112 gwei
+   > value sent:          0 ETH
+   > total cost:          0.007686351010866528 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 10132844)
+   > confirmation number: 2 (block: 10132845)
+
+   Replacing 'ZProxy'
+   ------------------
+   > transaction hash:    0x2aad17105623aca845e283fe7fb3bab21dd1ea97faf58776519cb268e34909c3
+   > Blocks: 1            Seconds: 9
+   > contract address:    0x7B218739C85b05AC8b67485819B206B3802622d9
+   > block number:        10132846
+   > block timestamp:     1644315115
+   > account:             0x7Adb261Bea663ee06E4ff0a657E65aE91aC7167f
+   > balance:             99.95474076410699353
+   > gas used:            1140436 (0x1166d4)
+   > gas price:           2.706534317 gwei
+   > value sent:          0 ETH
+   > total cost:          0.003086629170342212 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 10132847)
+   > confirmation number: 2 (block: 10132848)
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.01318910921905829 ETH
+
+
+Summary
+=======
+> Total deployments:   4
+> Final cost:          0.013876903149864478 ETH
+
+***************************************************************************************************
+
+Deplyed Contract Details (BSC Test Network) [Dated 08/02/2022]
+-------------------------------------------------------------------
+
+#ADDRESSES
+**********
+ZProxyAdmin - 0x7Fdd2632FB111A57695Bbd1E971e83856D72af61
+ZToken_V1   - 0x8B3757f14D150a1890368C1790B6663CBfFDD6b0
+ZProxy      - 0x89F31803F05e808Cf92493B923B670513f35FE11
+
+#Compilation Log
+***************************************************************************************************
+
+Compiling your contracts...
+===========================
+> Compiling @openzeppelin\contracts-upgradeable\access\OwnableUpgradeable.sol
+> Compiling @openzeppelin\contracts-upgradeable\proxy\utils\Initializable.sol
+> Compiling @openzeppelin\contracts-upgradeable\security\PausableUpgradeable.sol
+> Compiling @openzeppelin\contracts-upgradeable\token\ERC20\ERC20Upgradeable.sol
+> Compiling @openzeppelin\contracts-upgradeable\token\ERC20\IERC20Upgradeable.sol
+> Compiling @openzeppelin\contracts-upgradeable\token\ERC20\extensions\ERC20PausableUpgradeable.sol
+> Compiling @openzeppelin\contracts-upgradeable\token\ERC20\extensions\IERC20MetadataUpgradeable.sol
+> Compiling @openzeppelin\contracts-upgradeable\utils\AddressUpgradeable.sol
+> Compiling @openzeppelin\contracts-upgradeable\utils\ContextUpgradeable.sol
+> Compiling @openzeppelin\contracts\access\Ownable.sol
+> Compiling @openzeppelin\contracts\proxy\ERC1967\ERC1967Proxy.sol
+> Compiling @openzeppelin\contracts\proxy\ERC1967\ERC1967Upgrade.sol
+> Compiling @openzeppelin\contracts\proxy\Proxy.sol
+> Compiling @openzeppelin\contracts\proxy\beacon\IBeacon.sol
+> Compiling @openzeppelin\contracts\proxy\transparent\ProxyAdmin.sol
+> Compiling @openzeppelin\contracts\proxy\transparent\TransparentUpgradeableProxy.sol
+> Compiling @openzeppelin\contracts\utils\Address.sol
+> Compiling @openzeppelin\contracts\utils\Context.sol
+> Compiling @openzeppelin\contracts\utils\StorageSlot.sol
+> Compiling .\contracts\Migrations.sol
+> Compiling .\contracts\ZProxy.sol
+> Compiling .\contracts\ZProxyAdmin.sol
+> Compiling .\contracts\ZToken.sol
+> Artifacts written to D:\ZToken\build\contracts
+> Compiled successfully using:
+   - solc: 0.8.2+commit.661d1103.Emscripten.clang
+
+
+
+Starting migrations...
+======================
+> Network name:    'binanceTestnet'
+> Network id:      97
+> Block gas limit: 29882814 (0x1c7f9be)
+
+
+2_ZToken_migration.js
+=====================
+
+   Deploying 'ZProxyAdmin'
+   -----------------------
+   > transaction hash:    0xe56f0a70760a046016d7febdd47eead07166de45f1ef197ceb806a7fe695efa3
+   > Blocks: 3            Seconds: 9
+   > contract address:    0x7Fdd2632FB111A57695Bbd1E971e83856D72af61
+   > block number:        16573596
+   > block timestamp:     1644319997
+   > account:             0x7Adb261Bea663ee06E4ff0a657E65aE91aC7167f
+   > balance:             3.72362068
+   > gas used:            894230 (0xda516)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.0089423 ETH
+
+
+   Deploying 'ZToken_V1'
+   ---------------------
+   > transaction hash:    0x6335eb5297bfef604409d725bc56b73417c02e3e9a561b8b814c9092a3cf0501
+   > Blocks: 5            Seconds: 13
+   > contract address:    0x8B3757f14D150a1890368C1790B6663CBfFDD6b0
+   > block number:        16573603
+   > block timestamp:     1644320018
+   > account:             0x7Adb261Bea663ee06E4ff0a657E65aE91aC7167f
+   > balance:             3.69515224
+   > gas used:            2846844 (0x2b707c)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.02846844 ETH
+
+
+   Deploying 'ZProxy'
+   ------------------
+   > transaction hash:    0xfb9c1c44afd620f7c43f967c928b92c92528789936231998e1336781dc8a719c
+   > Blocks: 3            Seconds: 9
+   > contract address:    0x89F31803F05e808Cf92493B923B670513f35FE11
+   > block number:        16573610
+   > block timestamp:     1644320039
+   > account:             0x7Adb261Bea663ee06E4ff0a657E65aE91aC7167f
+   > balance:             3.68377388
+   > gas used:            1137836 (0x115cac)
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.01137836 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:           0.0487891 ETH
+
+
+Summary
+=======
+> Total deployments:   3
+> Final cost:          0.0487891 ETH
+
+
+expected gas usage = 5110985
