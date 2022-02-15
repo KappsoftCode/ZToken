@@ -5,17 +5,17 @@ step1 -> Install truffle globally.
             $npm install -g truffle
 
 step2 -> Clone the github repo.
-            $git clone https://github.com/Kappsoft/UNICOIN-DCX.git
+            $git clone https://github.com/KappsoftCode/ZToken.git
 
 step3 -> Install all other packages.
-            $cd UNICOIN-DCX
+            $cd ZToken
             $npm install
 
 step4 -> Create a .env file with following variables.
 
 example:
             ETHERSCAN_API_KEY =NMY3M6XYFUnhkjhXNTASD71PPM56Z2EMKJM
-            DEVELOPMENT_MNEMONIC =son cook jacket visit float skip frost maximum intact eight flee
+            DEVELOPMENT_MNEMONIC =Alice apple bob cat skip frost maximum intact eight flee
             INFURA_SECRET =9a6258223f98b747d5a16b6e11b0a16d7b
             INFURA_ID =cb546799242c4621b4e5c511234b6e85
             MNEMONIC =Please fill the data
@@ -34,7 +34,7 @@ step6 -> Verify the contract code.
             $truffle run verify ZToken_V1 --network rinkeby
             $truffle run verify ZProxy --network rinkeby
 
-Deplyed Contract Details (Rinkeby Test Network) [Dated 08/02/2022]
+Deployed Contract Details (Rinkeby Test Network) [Dated 08/02/2022]
 -------------------------------------------------------------------
 
 #ADDRESSES
@@ -160,7 +160,7 @@ Summary
 
 ***************************************************************************************************
 
-Deplyed Contract Details (BSC Test Network) [Dated 08/02/2022]
+Deployed Contract Details (BSC Test Network) [Dated 08/02/2022]
 -------------------------------------------------------------------
 
 #ADDRESSES
