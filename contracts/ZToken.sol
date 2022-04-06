@@ -2,9 +2,9 @@
 
 pragma solidity 0.8.2;
 
-import '@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PausableUpgradeable.sol';
-import '@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol';
-import '@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol';
+import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PausableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 /**
  *@dev Contract module which helps to make some fund holded for certain time.
@@ -89,7 +89,7 @@ contract ZToken_V1 is ERC20PausableUpgradeable, OwnableUpgradeable, Holdable {
     /**
      * @dev Throws if called by any account other than the owner or governer.
      */
-    modifier onlyAdmin {
+    modifier onlyAdmin() {
         require(
             _msgSender() == owner() || _msgSender() == governor(),
             "Caller is not an admin"
@@ -109,7 +109,7 @@ contract ZToken_V1 is ERC20PausableUpgradeable, OwnableUpgradeable, Holdable {
         string memory name_,
         string memory symbol_,
         uint256 totalSupply_
-    ) public initializer {
+    ) external initializer {
         __ERC20Pausable_init_unchained();
         __Pausable_init_unchained();
         __Context_init_unchained();
@@ -121,35 +121,24 @@ contract ZToken_V1 is ERC20PausableUpgradeable, OwnableUpgradeable, Holdable {
     }
 
     /**
-     *@dev function which returns the governer address.
-     * governer role is created to manage funding.
-     */
-
-    function governor() public view returns (address) {
-        return _governor;
-    }
-
-    /**
      *@dev external function to set new governer. Function is limited to owner.
      */
-    function setGovernor(address newGovernor) public virtual onlyOwner {
+    function setGovernor(address newGovernor) external virtual onlyOwner {
         _setGovernor(newGovernor);
     }
 
-    /**
-     *@dev internal function to set new governer.
-     */
-    function _setGovernor(address newGovernor) internal virtual {
-        _governor = newGovernor;
-    }
-
-    function addHolder(address holder) public virtual onlyAdmin returns (bool) {
+    function addHolder(address holder)
+        external
+        virtual
+        onlyAdmin
+        returns (bool)
+    {
         _addHolder(holder);
         return true;
     }
 
     function removeHolder(address holder)
-        public
+        external
         virtual
         onlyAdmin
         returns (bool)
@@ -163,7 +152,7 @@ contract ZToken_V1 is ERC20PausableUpgradeable, OwnableUpgradeable, Holdable {
      *
      * See {ERC20-_burn}.
      */
-    function burn(uint256 amount) public virtual returns (bool) {
+    function burn(uint256 amount) external virtual returns (bool) {
         _burn(_msgSender(), amount);
         return true;
     }
@@ -179,7 +168,7 @@ contract ZToken_V1 is ERC20PausableUpgradeable, OwnableUpgradeable, Holdable {
      * - the caller must have allowance for ``accounts``'s tokens of at least
      * `amount`.
      */
-    function burnFrom(address account, uint256 amount) public virtual {
+    function burnFrom(address account, uint256 amount) external virtual {
         uint256 currentAllowance = allowance(account, _msgSender());
         require(
             currentAllowance >= amount,
@@ -200,7 +189,7 @@ contract ZToken_V1 is ERC20PausableUpgradeable, OwnableUpgradeable, Holdable {
      *
      * - the caller must be the owner of the contract.
      */
-    function pause() public virtual onlyOwner {
+    function pause() external virtual onlyOwner {
         _pause();
     }
 
@@ -213,8 +202,25 @@ contract ZToken_V1 is ERC20PausableUpgradeable, OwnableUpgradeable, Holdable {
      *
      * - the caller must be owner of the contract.
      */
-    function unpause() public virtual onlyOwner {
+    function unpause() external virtual onlyOwner {
         _unpause();
+    }
+
+    /**
+     *@dev function which returns the governer address.
+     * governer role is created to manage funding.
+     */
+
+    function governor() public view returns (address) {
+        return _governor;
+    }
+
+    /**
+     *@dev internal function to set new governer.
+     */
+    function _setGovernor(address newGovernor) internal virtual {
+        _governor = newGovernor;
+        emit GovernerAdded(newGovernor);
     }
 
     function _transfer(
@@ -227,4 +233,9 @@ contract ZToken_V1 is ERC20PausableUpgradeable, OwnableUpgradeable, Holdable {
         }
         super._transfer(sender, recipient, amount);
     }
+
+    /**
+     * @dev Emitted when new `address` added as governer.
+     */
+    event GovernerAdded(address indexed _account);
 }
