@@ -18,14 +18,15 @@
  *
  */
 
-const HDWalletProvider = require('@truffle/hdwallet-provider');
-require('dotenv').config()
-const testnetMnemonic = process.env.DEVELOPMENT_MNEMONIC
-const mnemonic = process.env.MNEMONIC
-const infuraRinkeby  = `https://:${process.env.INFURA_SECRET}@rinkeby.infura.io/v3/${process.env.INFURA_ID}`;
-const mumbaiTestnetSeed = "https://speedy-nodes-nyc.moralis.io/5f7cfd00d0129dcc6dae58bd/polygon/mumbai"
-const infura = `https://:${process.env.INFURA_SECRET}@mainnet.infura.io/v3/${process.env.INFURA_ID}`
-const binanceTestnetSeed = "https://data-seed-prebsc-1-s1.binance.org:8545/"
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+require("dotenv").config();
+const mnemonic = process.env.MNEMONIC;
+const infuraRinkeby = `wss://:${process.env.INFURA_SECRET}@rinkeby.infura.io/ws/v3/${process.env.INFURA_ID}`;
+const mumbaiTestnetSeed = "https://matic-mumbai.chainstacklabs.com";
+const polygonMainnetSeed = "wss://rpc-mainnet.matic.network"
+const binanceMainnetSeed = "https://bsc-dataseed1.ninicoin.io/"
+const infura = `https://:${process.env.INFURA_SECRET}@mainnet.infura.io/v3/${process.env.INFURA_ID}`;
+const binanceTestnetSeed = "https://data-seed-prebsc-2-s3.binance.org:8545/";
 
 module.exports = {
   /**
@@ -39,61 +40,74 @@ module.exports = {
    */
 
   networks: {
-    // Useful for testing. The `development` name is special - truffle uses it by default
-    // if it's defined here and no other network is specified at the command line.
-    // You should run a client (like ganache-cli, geth or parity) in a separate terminal
-    // tab if you use this network and you must also set the `host`, `port` and `network_id`
-    // options below to some value.
-    //
-    // development: {
-    //  host: "127.0.0.1",     // Localhost (default: none)
-    //  port: 7545,            // Standard Ethereum port (default: none)
-    //  network_id: 5777,       // Any network (default: none)
-    // },
-    // Another network with more advanced options...
-    // advanced: {
-    // port: 8777,             // Custom port
-    // network_id: 1342,       // Custom network
-    // gas: 8500000,           // Gas sent with each transaction (default: ~6700000)
-    // gasPrice: 20000000000,  // 20 gwei (in wei) (default: 100 gwei)
-    // from: <address>,        // Account to send txs from (default: accounts[0])
-    // websocket: true        // Enable EventEmitter interface for web3 (default: false)
-    // },
-    // Useful for deploying to a public network.
-    // NB: It's important to wrap the provider as a function.
+  
+    development: {
+      host: "127.0.0.1", // Localhost (default: none)
+      port: 7545, // Standard Ethereum port (default: none)
+      network_id: 5777, // Any network (default: none)
+    },
+    
     polygonTestnet: {
-    provider: () => new HDWalletProvider(testnetMnemonic, mumbaiTestnetSeed),
-    network_id: 80001,      
-    //gas: 5500000,        // Ropsten has a lower block limit than mainnet
-    //confirmations: 2,    // # of confs to wait between deployments. (default: 0)
-    timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
-    skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+      provider: () =>
+        new HDWalletProvider({
+          mnemonic: {
+            phrase: mnemonic,
+          },
+          providerOrUrl: mumbaiTestnetSeed,
+          pollingInterval: 8000,
+        }),
+      network_id: 80001,
+      timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
+      deploymentPollingInterval: 8000,
+      skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
     },
 
     binanceTestnet: {
-      provider: () => new HDWalletProvider(testnetMnemonic, binanceTestnetSeed),
-      network_id: 97,     
-      //confirmations: 2,    // # of confs to wait between deployments. (default: 0)
-      timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
-      skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
-      },
+      provider: () => new HDWalletProvider({
+        mnemonic: {
+          phrase: mnemonic,
+        },
+        providerOrUrl: binanceTestnetSeed,
+        pollingInterval: 12000,
+      }),
+      network_id: 97,
+      deploymentPollingInterval: 8000,
+      confirmations: 2,    // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 500, // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
+    },
 
     rinkeby: {
-    provider: () => new HDWalletProvider(testnetMnemonic,infuraRinkeby),
-    network_id: 4,       // Rinkeby's id
-    gas: 6000000,     
-    confirmations: 2,    // # of confs to wait between deployments. (default: 0)
-    timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
-    skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+      provider: () => new HDWalletProvider(mnemonic, infuraRinkeby),
+      network_id: 4, // Rinkeby's id
+      gas: 6000000,
+      confirmations: 2, // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 500, // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
+      deploymentPollingInterval: 8000,
     },
-    
-    // Useful for private networks
-    mainnet: {
-    provider: () => new HDWalletProvider(mnemonic, infura),
-    network_id: 1,      // This network is yours, in the cloud.
-    confirmations: 2,   // # of confs to wait between deployments. (default: 0)
-    production: true    // Treats this network as if it was a public net. (default: false)
-    }
+
+    //Mainnets
+    ethereum: {
+      provider: () => new HDWalletProvider(mnemonic, infura),
+      network_id: 1,
+      confirmations: 2, // # of confs to wait between deployments. (default: 0)
+      production: true, // Treats this network as if it was a public net. (default: false)
+    },
+
+    polygon: {
+      provider: () => new HDWalletProvider(mnemonic, polygonMainnetSeed),
+      network_id: 137,
+      confirmations: 2, 
+      production: true, 
+    },
+
+    bsc: {
+      provider: () => new HDWalletProvider(mnemonic, binanceMainnetSeed),
+      network_id: 56, 
+      confirmations: 2, 
+      production: true, 
+    },
   },
 
   // Set default mocha options here, use special reporters etc.
@@ -104,35 +118,29 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.2",    // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.8.2", // Fetch exact version from solc-bin (default: truffle's version)
       //docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
-      settings: {          // See the solidity docs for advice about optimization and evmVersion
+      settings: {
+        // See the solidity docs for advice about optimization and evmVersion
         optimizer: {
           enabled: false,
-          runs: 200
+          runs: 200,
         },
-        evmVersion: "byzantium"
-      }
-    }
+        evmVersion: "byzantium",
+      },
+    },
   },
 
-  // Truffle DB is currently disabled by default; to enable it, change enabled: false to enabled: true
-  //
-  // Note: if you migrated your contracts prior to enabling this field in your Truffle project and want
-  // those previously migrated contracts available in the .db directory, you will need to run the following:
-  // $ truffle migrate --reset --compile-all
 
   db: {
-    enabled: false
+    enabled: false,
   },
 
-  plugins: [
-    'truffle-plugin-verify'
-  ],
+  plugins: ["truffle-plugin-verify"],
 
-  api_keys:{
-    etherscan:process.env.ETHERSCAN_API_KEY,
+  api_keys: {
+    etherscan: process.env.ETHERSCAN_API_KEY,
     bscscan: process.env.BSCSCAN_API_KEY,
-    polygonscan: process.env.POLYGONSCAN_API_KEY
-  }
+    polygonscan: process.env.POLYGONSCAN_API_KEY,
+  },
 };
