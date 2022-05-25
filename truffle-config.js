@@ -23,7 +23,7 @@ require("dotenv").config();
 const mnemonic = process.env.MNEMONIC;
 const infuraRinkeby = `wss://:${process.env.INFURA_SECRET}@rinkeby.infura.io/ws/v3/${process.env.INFURA_ID}`;
 const mumbaiTestnetSeed = "https://matic-mumbai.chainstacklabs.com";
-const polygonMainnetSeed = "wss://rpc-mainnet.matic.network"
+const polygonMainnetSeed = "https://polygon-rpc.com/"
 const binanceMainnetSeed = "https://bsc-dataseed1.ninicoin.io/"
 const infura = `https://:${process.env.INFURA_SECRET}@mainnet.infura.io/v3/${process.env.INFURA_ID}`;
 const binanceTestnetSeed = "https://data-seed-prebsc-2-s3.binance.org:8545/";
