@@ -100,6 +100,7 @@ module.exports = {
       network_id: 137,
       confirmations: 2, 
       production: true, 
+      gasPrice: 32000000000
     },
 
     bsc: {
